@@ -1,24 +1,16 @@
-# SajuMe Yun
+# React + Vite
 
-사주를 봐주는 웹 서비스입니다.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-생년월일시를 입력하면 사주팔자(四柱八字)를 계산하고, 결과를 웹에서 확인할 수 있도록 만드는 프로젝트입니다.
+Currently, two official plugins are available:
 
-## 목표
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-- 생년월일시 기반 사주 명식 계산
-- 웹에서 보기 쉬운 사주 결과 화면
-- 이후 운세·해석 기능 확장
+## React Compiler
 
-## 시작하기
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-> 아직 초기 저장소 단계입니다. 프로젝트 구조와 실행 방법은 개발이 진행되면 이 README에 추가합니다.
+## Expanding the ESLint configuration
 
-```bash
-git clone https://github.com/swn06/SajuMe_Yun.git
-cd SajuMe_Yun
-```
-
-## 라이선스
-
-미정
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
