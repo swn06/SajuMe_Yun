@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import './App.css'
 import { buildSajuPrompt } from './prompt.js'
+import LoadingRitual from './LoadingRitual.jsx'
 
-// fetch만 사용 — gemini-2.5-flash
+// fetch만 사용 — gemini
 async function askGemini(prompt) {
   const apiKey = import.meta.env.VITE_GEMINI_API_KEY
   if (!apiKey) {
@@ -54,7 +55,9 @@ function App() {
   const [gender, setGender] = useState('')
   const [calendarType, setCalendarType] = useState('solar')
 
-  const [loading, setLoading] = useState(false)
+  /** null | 'loading' | 'bursting' */
+  const [ritualPhase, setRitualPhase] = useState(null)
+  const pendingResultRef = useRef('')
   const [result, setResult] = useState('')
   const [error, setError] = useState('')
 
@@ -62,28 +65,37 @@ function App() {
     e.preventDefault()
     setError('')
     setResult('')
+    pendingResultRef.current = ''
 
     if (!name || !birthDate || !gender) {
       setError('이름, 생년월일, 성별은 필수입니다.')
       return
     }
 
-    setLoading(true)
+    setRitualPhase('loading')
     try {
       const prompt = buildSajuPrompt({ name, birthDate, birthTime, gender, calendarType })
       const text = await askGemini(prompt)
-      setResult(text)
+      pendingResultRef.current = text
+      setRitualPhase('bursting')
     } catch (err) {
+      setRitualPhase(null)
       setError(err.message || '해석 중 오류가 발생했습니다.')
-    } finally {
-      setLoading(false)
     }
   }
+
+  const handleBurstEnd = useCallback(() => {
+    setResult(pendingResultRef.current)
+    pendingResultRef.current = ''
+    setRitualPhase(null)
+  }, [])
+
+  const isBusy = ritualPhase === 'loading' || ritualPhase === 'bursting'
 
   return (
     <div className="app">
       <span className="app__mark">宿命 · SAJU</span>
-      <h1>사주 입력</h1>
+      <h1>무냥이의 사주풀이</h1>
 
       <form onSubmit={handleAnalyze}>
         <div>
@@ -94,6 +106,7 @@ function App() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="이름을 입력하세요"
+            disabled={isBusy}
           />
         </div>
 
@@ -104,6 +117,7 @@ function App() {
             type="date"
             value={birthDate}
             onChange={(e) => setBirthDate(e.target.value)}
+            disabled={isBusy}
           />
         </div>
 
@@ -114,6 +128,7 @@ function App() {
             type="time"
             value={birthTime}
             onChange={(e) => setBirthTime(e.target.value)}
+            disabled={isBusy}
           />
         </div>
 
@@ -126,6 +141,7 @@ function App() {
               value="male"
               checked={gender === 'male'}
               onChange={(e) => setGender(e.target.value)}
+              disabled={isBusy}
             />
             남성
           </label>
@@ -136,6 +152,7 @@ function App() {
               value="female"
               checked={gender === 'female'}
               onChange={(e) => setGender(e.target.value)}
+              disabled={isBusy}
             />
             여성
           </label>
@@ -147,24 +164,29 @@ function App() {
             id="calendarType"
             value={calendarType}
             onChange={(e) => setCalendarType(e.target.value)}
+            disabled={isBusy}
           >
             <option value="solar">양력</option>
             <option value="lunar">음력</option>
           </select>
         </div>
 
-        <button type="submit" disabled={loading}>
-          {loading ? '🔮 풀이 중...' : '사주 해석하기'}
+        <button type="submit" disabled={isBusy}>
+          {isBusy ? '풀이 중...' : '사주 해석하기'}
         </button>
       </form>
 
       {error && <p className="app__error">{error}</p>}
 
       {result && (
-        <section className="app__result">
+        <section className="app__result app__result--reveal">
           <h2>해석 결과</h2>
           <p style={{ whiteSpace: 'pre-wrap' }}>{result}</p>
         </section>
+      )}
+
+      {ritualPhase && (
+        <LoadingRitual phase={ritualPhase} onBurstEnd={handleBurstEnd} />
       )}
     </div>
   )

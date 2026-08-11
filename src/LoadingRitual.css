@@ -1,0 +1,249 @@
+.ritual {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  background: transparent;
+  pointer-events: none;
+  animation: ritual-fade-in 0.35s ease-out both;
+}
+
+.ritual--bursting {
+  animation: ritual-fade-out 0.55s ease-in 0.85s both;
+  pointer-events: none;
+}
+
+.ritual__stage {
+  position: relative;
+  width: min(280px, 72vw);
+  height: min(280px, 72vw);
+  display: grid;
+  place-items: center;
+}
+
+.ritual__cat-wrap,
+.ritual__burst,
+.ritual__shards {
+  grid-area: 1 / 1;
+}
+
+/* ——— 춤추는 무냥이 ——— */
+.ritual__cat-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  transform-origin: 50% 70%;
+  animation: ritual-dance 0.85s ease-in-out infinite;
+}
+
+.ritual--bursting .ritual__cat-wrap {
+  animation: ritual-cat-pop 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.2) forwards;
+}
+
+.ritual__cat {
+  width: 92%;
+  height: auto;
+  user-select: none;
+  pointer-events: none;
+  filter: drop-shadow(0 0 18px rgba(235, 210, 140, 0.35));
+  animation: ritual-wiggle 0.42s ease-in-out infinite alternate;
+}
+
+.ritual--bursting .ritual__cat {
+  animation: none;
+}
+
+/* ——— 반짝이 ——— */
+.ritual__spark {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #f5e6a0;
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  animation: ritual-twinkle 1.1s ease-in-out infinite;
+}
+
+.ritual__spark--1 { top: 8%; left: 18%; animation-delay: 0s; --fly-x: -60px; --fly-y: -80px; }
+.ritual__spark--2 { top: 14%; right: 12%; width: 14px; height: 14px; animation-delay: 0.25s; --fly-x: 70px; --fly-y: -60px; }
+.ritual__spark--3 { bottom: 22%; left: 8%; width: 8px; height: 8px; animation-delay: 0.45s; --fly-x: -80px; --fly-y: 40px; }
+.ritual__spark--4 { bottom: 18%; right: 16%; animation-delay: 0.7s; --fly-x: 75px; --fly-y: 55px; }
+.ritual__spark--5 { top: 42%; left: 2%; width: 7px; height: 7px; animation-delay: 0.15s; --fly-x: -90px; --fly-y: -10px; }
+
+.ritual--bursting .ritual__spark {
+  animation: ritual-spark-fly 0.5s ease-out forwards;
+}
+
+/* ——— 박 터짐 이미지 ——— */
+.ritual__burst {
+  width: 118%;
+  max-width: none;
+  opacity: 0;
+  transform: scale(0.25);
+  pointer-events: none;
+  user-select: none;
+}
+
+.ritual--bursting .ritual__burst {
+  animation: ritual-burst-pop 0.9s cubic-bezier(0.15, 0.85, 0.25, 1) forwards;
+}
+
+/* ——— 파편 ——— */
+.ritual__shards {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.ritual--bursting .ritual__shards {
+  opacity: 1;
+}
+
+.ritual__shard {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  opacity: 0;
+  background: #f0d878;
+}
+
+.ritual__shard:nth-child(odd) {
+  background: #c9b4e8;
+  border-radius: 2px;
+  width: 9px;
+  height: 5px;
+}
+
+.ritual__shard:nth-child(3n) {
+  background: #f4f0e4;
+  width: 5px;
+  height: 5px;
+}
+
+.ritual--bursting .ritual__shard {
+  animation: ritual-shard-fly 0.75s ease-out forwards;
+}
+
+.ritual__shard--1  { --dx: 110px;  --dy: -90px;  animation-delay: 0.05s; }
+.ritual__shard--2  { --dx: -100px; --dy: -70px;  animation-delay: 0.08s; }
+.ritual__shard--3  { --dx: 70px;   --dy: 100px;  animation-delay: 0.02s; }
+.ritual__shard--4  { --dx: -90px;  --dy: 85px;   animation-delay: 0.1s; }
+.ritual__shard--5  { --dx: 130px;  --dy: 20px;   animation-delay: 0.04s; }
+.ritual__shard--6  { --dx: -125px; --dy: -10px;  animation-delay: 0.12s; }
+.ritual__shard--7  { --dx: 40px;   --dy: -120px; animation-delay: 0.06s; }
+.ritual__shard--8  { --dx: -50px;  --dy: 115px;  animation-delay: 0.09s; }
+.ritual__shard--9  { --dx: 95px;   --dy: -40px;  animation-delay: 0.03s; }
+.ritual__shard--10 { --dx: -80px;  --dy: -100px; animation-delay: 0.11s; }
+.ritual__shard--11 { --dx: 20px;   --dy: 125px;  animation-delay: 0.07s; }
+.ritual__shard--12 { --dx: -30px;  --dy: -130px; animation-delay: 0.01s; }
+
+/* ——— 멘트 ——— */
+.ritual__caption {
+  margin: 0;
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 4vw, 1.45rem);
+  letter-spacing: 0.28em;
+  text-shadow: 0 0 18px color-mix(in srgb, var(--crimson) 70%, transparent);
+  animation: ritual-caption-pulse 1.4s ease-in-out infinite;
+}
+
+.ritual__dots {
+  display: inline-block;
+  animation: ritual-tilde 0.9s ease-in-out infinite;
+}
+
+.ritual--bursting .ritual__caption {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* ——— keyframes ——— */
+@keyframes ritual-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes ritual-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes ritual-dance {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-14px) rotate(4deg); }
+}
+
+@keyframes ritual-wiggle {
+  from { transform: rotate(-3deg) scale(1); }
+  to { transform: rotate(3deg) scale(1.03); }
+}
+
+@keyframes ritual-twinkle {
+  0%, 100% { opacity: 0.25; transform: scale(0.7) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.25) rotate(20deg); }
+}
+
+@keyframes ritual-caption-pulse {
+  0%, 100% { opacity: 0.7; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-3px); }
+}
+
+@keyframes ritual-tilde {
+  0%, 100% { transform: translateX(0); opacity: 0.5; }
+  50% { transform: translateX(4px); opacity: 1; }
+}
+
+@keyframes ritual-cat-pop {
+  0% { transform: scale(1) rotate(0deg); opacity: 1; filter: brightness(1); }
+  35% { transform: scale(1.35) rotate(12deg); opacity: 1; filter: brightness(1.4); }
+  100% { transform: scale(0) rotate(40deg); opacity: 0; filter: brightness(2); }
+}
+
+@keyframes ritual-burst-pop {
+  0% { opacity: 0; transform: scale(0.2); }
+  25% { opacity: 1; transform: scale(1.05); }
+  70% { opacity: 1; transform: scale(1.2); }
+  100% { opacity: 0; transform: scale(1.55); }
+}
+
+@keyframes ritual-spark-fly {
+  to {
+    opacity: 0;
+    transform: translate(var(--fly-x, 40px), var(--fly-y, -50px)) scale(0);
+  }
+}
+
+@keyframes ritual-shard-fly {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0.3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ritual__cat-wrap,
+  .ritual__cat,
+  .ritual__spark,
+  .ritual__caption,
+  .ritual__dots {
+    animation: none !important;
+  }
+
+  .ritual--bursting .ritual__burst {
+    animation-duration: 0.4s;
+  }
+}

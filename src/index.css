@@ -1,10 +1,19 @@
 :root {
-  --ink: #0c0c0c;
-  --ash: #2a2a2a;
-  --smoke: #6e6e6e;
-  --bone: #d6d1c7;
-  --paper: #ebe6dc;
-  --line: #3f3f3f;
+  /* 면 · 글자 (무당 밤제 톤) */
+  --ink: #12070b;
+  --ash: #2a1018;
+  --smoke: #b07a84;
+  --bone: #f2d8cc;
+  --paper: #fff3e6;
+  --line: #8a2a3e;
+
+  /* 보낸 이미지 오방색 */
+  --crimson: #c41e3a;
+  --magenta: #d91a6e;
+  --royal: #1e4a9e;
+  --jade: #2a9b6e;
+  --gold: #e8b84a;
+
   --font-display: 'Song Myung', serif;
   --font-body: 'Gowun Batang', serif;
 }
@@ -26,8 +35,8 @@ body {
   color: var(--bone);
   font-family: var(--font-body);
   background-color: var(--ink);
-  /* 재 점무늬 (SVG) — CSS gradient 미사용 */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18'%3E%3Ccircle cx='1' cy='1' r='1' fill='%231a1a1a'/%3E%3C/svg%3E");
+  /* 무당 옷단 점무늬 — 홍·금·청 점 (CSS gradient 미사용) */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28'%3E%3Ccircle cx='4' cy='4' r='1.4' fill='%23c41e3a' fill-opacity='0.45'/%3E%3Ccircle cx='4' cy='4' r='0.45' fill='%23fff3e6' fill-opacity='0.7'/%3E%3Ccircle cx='18' cy='14' r='1.1' fill='%23e8b84a' fill-opacity='0.35'/%3E%3Ccircle cx='10' cy='22' r='1' fill='%231e4a9e' fill-opacity='0.4'/%3E%3C/svg%3E");
   text-align: center;
 }
 
