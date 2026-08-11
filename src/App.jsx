@@ -1,115 +1,172 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
 import './App.css'
+import { buildSajuPrompt } from './prompt.js'
+
+// fetch만 사용 — gemini-2.5-flash
+async function askGemini(prompt) {
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY
+  if (!apiKey) {
+    throw new Error('VITE_GEMINI_API_KEY가 .env에 없습니다. 개발 서버를 재시작해 주세요.')
+  }
+
+  const model = 'gemini-3.6-flash'
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-goog-api-key': apiKey,
+    },
+    body: JSON.stringify({
+      contents: [
+        {
+          role: 'user',
+          parts: [{ text: prompt }],
+        },
+      ],
+    }),
+  })
+
+  const data = await response.json()
+
+  if (!response.ok) {
+    const message = data?.error?.message || `API 오류 (${response.status})`
+    throw new Error(message)
+  }
+
+  const text = data?.candidates?.[0]?.content?.parts
+    ?.map((part) => part.text)
+    .filter(Boolean)
+    .join('\n')
+
+  if (!text) {
+    throw new Error('Gemini 응답에서 텍스트를 찾지 못했습니다.')
+  }
+
+  return text
+}
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [name, setName] = useState('')
+  const [birthDate, setBirthDate] = useState('')
+  const [birthTime, setBirthTime] = useState('')
+  const [gender, setGender] = useState('')
+  const [calendarType, setCalendarType] = useState('solar')
+
+  const [loading, setLoading] = useState(false)
+  const [result, setResult] = useState('')
+  const [error, setError] = useState('')
+
+  async function handleAnalyze(e) {
+    e.preventDefault()
+    setError('')
+    setResult('')
+
+    if (!name || !birthDate || !gender) {
+      setError('이름, 생년월일, 성별은 필수입니다.')
+      return
+    }
+
+    setLoading(true)
+    try {
+      const prompt = buildSajuPrompt({ name, birthDate, birthTime, gender, calendarType })
+      const text = await askGemini(prompt)
+      setResult(text)
+    } catch (err) {
+      setError(err.message || '해석 중 오류가 발생했습니다.')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
-    <>
-      <section id="center">
+    <div className="app">
+      <span className="app__mark">宿命 · SAJU</span>
+      <h1>사주 입력</h1>
+
+      <form onSubmit={handleAnalyze}>
         <div>
-          <h1>윤주의 사주교실</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
+          <label htmlFor="name">이름</label>
+          <input
+            id="name"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="이름을 입력하세요"
+          />
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
+
+        <div>
+          <label htmlFor="birthDate">생년월일</label>
+          <input
+            id="birthDate"
+            type="date"
+            value={birthDate}
+            onChange={(e) => setBirthDate(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="birthTime">태어난 시간</label>
+          <input
+            id="birthTime"
+            type="time"
+            value={birthTime}
+            onChange={(e) => setBirthTime(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <span>성별</span>
+          <label>
+            <input
+              type="radio"
+              name="gender"
+              value="male"
+              checked={gender === 'male'}
+              onChange={(e) => setGender(e.target.value)}
+            />
+            남성
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="gender"
+              value="female"
+              checked={gender === 'female'}
+              onChange={(e) => setGender(e.target.value)}
+            />
+            여성
+          </label>
+        </div>
+
+        <div>
+          <label htmlFor="calendarType">양력 / 음력</label>
+          <select
+            id="calendarType"
+            value={calendarType}
+            onChange={(e) => setCalendarType(e.target.value)}
+          >
+            <option value="solar">양력</option>
+            <option value="lunar">음력</option>
+          </select>
+        </div>
+
+        <button type="submit" disabled={loading}>
+          {loading ? '🔮 풀이 중...' : '사주 해석하기'}
         </button>
-      </section>
+      </form>
 
-      <div className="ticks"></div>
+      {error && <p className="app__error">{error}</p>}
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      {result && (
+        <section className="app__result">
+          <h2>해석 결과</h2>
+          <p style={{ whiteSpace: 'pre-wrap' }}>{result}</p>
+        </section>
+      )}
+    </div>
   )
 }
 
