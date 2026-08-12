@@ -361,12 +361,62 @@
   border-color: var(--gold);
 }
 
+.app__view-banner--edit {
+  border-color: color-mix(in srgb, var(--gold) 55%, var(--crimson));
+}
+
 .app form {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.05rem;
   transition: opacity 0.25s ease;
+}
+
+.app__field--result {
+  width: 100%;
+}
+
+.app__field--result textarea {
+  width: 100%;
+  max-width: 320px;
+  min-height: 10rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid color-mix(in srgb, var(--crimson) 40%, var(--line));
+  border-radius: 0;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  resize: vertical;
+  text-align: left;
+}
+
+.app__field--result textarea:focus {
+  outline: 1px solid var(--gold);
+  outline-offset: 1px;
+}
+
+.app__submit-row {
+  width: 100%;
+  max-width: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.app__submit--secondary {
+  background: color-mix(in srgb, var(--ink) 70%, var(--ash));
+  border-color: color-mix(in srgb, var(--crimson) 50%, var(--gold));
+  letter-spacing: 0.1em;
+  font-size: 0.95rem;
+}
+
+.app__submit--secondary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--crimson) 35%, var(--ink));
+  color: var(--paper);
+  border-color: var(--gold);
 }
 
 .app__form--dim {
@@ -671,6 +721,14 @@
   border-top: 1px solid color-mix(in srgb, var(--crimson) 28%, transparent);
 }
 
+.reading-panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.45rem;
+}
+
+.reading-panel__action,
 .reading-panel__new {
   display: inline-flex;
   align-items: center;
@@ -685,9 +743,26 @@
   cursor: pointer;
 }
 
-.reading-panel__new:hover {
+.reading-panel__action:hover:not(:disabled),
+.reading-panel__new:hover:not(:disabled) {
   background: color-mix(in srgb, var(--crimson) 45%, var(--ink));
   border-color: var(--gold);
+}
+
+.reading-panel__action:disabled,
+.reading-panel__new:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.reading-panel__action--danger {
+  border-color: color-mix(in srgb, var(--magenta) 55%, var(--crimson));
+  color: color-mix(in srgb, var(--paper) 85%, var(--magenta));
+}
+
+.reading-panel__action--danger:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--magenta) 35%, var(--ink));
+  border-color: var(--magenta);
 }
 
 /* ——— responsive ——— */
