@@ -1,0 +1,111 @@
+.app {
+  grid-column: 2;
+  width: min(420px, 92vw);
+  margin: 0;
+  padding: 2.1rem 1.45rem 2.35rem;
+  justify-self: center;
+}
+
+.app--viewing {
+  outline-color: color-mix(in srgb, var(--gold) 35%, var(--crimson));
+}
+
+.app__mark {
+  display: block;
+  margin: 0 0 0.55rem;
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  letter-spacing: 0.35em;
+}
+
+.app h1 {
+  margin: 0 0 1.35rem;
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 5vw, 2.2rem);
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-shadow: 0 0 24px color-mix(in srgb, var(--crimson) 55%, transparent);
+}
+
+.app__profile-hint {
+  margin: -0.85rem 0 1.15rem;
+  color: var(--smoke);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+}
+
+.app__view-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 0 0 1.25rem;
+  padding: 0.85rem 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--crimson) 45%, var(--gold));
+  background: color-mix(in srgb, var(--ink) 45%, transparent);
+}
+
+.app__view-banner p {
+  margin: 0;
+  color: var(--bone);
+  font-size: 0.86rem;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+}
+
+.app__view-banner strong {
+  color: var(--paper);
+  font-weight: 700;
+}
+
+.app__view-banner button {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--crimson) 65%, var(--gold));
+  background: color-mix(in srgb, var(--crimson) 35%, var(--ink));
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.app__view-banner button:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--crimson) 55%, var(--ink));
+  border-color: var(--gold);
+}
+
+.app__view-banner--edit {
+  border-color: color-mix(in srgb, var(--gold) 55%, var(--crimson));
+}
+
+.app__stat {
+  margin: 1.15rem 0 0;
+  color: var(--smoke);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  line-height: 1.55;
+}
+
+.app__stat-mark {
+  margin-right: 0.35rem;
+  color: color-mix(in srgb, var(--gold) 80%, var(--crimson));
+  font-size: 0.68rem;
+}
+
+.app__stat strong {
+  color: var(--gold);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+}
+
+.app__error {
+  margin: 1.15rem 0 0;
+  padding: 0.75rem;
+  border: 1px solid var(--magenta);
+  color: var(--paper);
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+}

@@ -1,18 +1,11 @@
 import { useEffect, useState } from 'react'
-import Mascot from './Mascot.jsx'
-import { supabase } from './lib/supabase.js'
-import { formatMeta, isShareToken } from './lib/format.js'
-
-function TalismanCorners() {
-  return (
-    <>
-      <span className="talisman__corner talisman__corner--tl" aria-hidden="true" />
-      <span className="talisman__corner talisman__corner--tr" aria-hidden="true" />
-      <span className="talisman__corner talisman__corner--bl" aria-hidden="true" />
-      <span className="talisman__corner talisman__corner--br" aria-hidden="true" />
-    </>
-  )
-}
+import Mascot from '../components/ui/Mascot.jsx'
+import TalismanCorners from '../components/ui/TalismanCorners.jsx'
+import { supabase } from '../lib/supabase.js'
+import { formatMeta, isShareToken } from '../lib/format.js'
+import { trackEvent } from '../lib/analytics.js'
+import '../styles/form.css'
+import '../components/reading/reading.css'
 
 export default function SharedResult({ token }) {
   const [reading, setReading] = useState(null)
@@ -49,6 +42,7 @@ export default function SharedResult({ token }) {
 
       setReading(row)
       setStatus('ready')
+      trackEvent('shared_result_view')
     }
 
     load()
@@ -73,7 +67,13 @@ export default function SharedResult({ token }) {
           <div className="share-page__state">
             <Mascot pose="bow" size="md" />
             <p>{error}</p>
-            <a className="app__submit share-page__home" href="/">
+            <a
+              className="app__submit share-page__home"
+              href="/"
+              data-ga-event="cta_try_saju"
+              data-ga-location="share_error"
+              onClick={() => trackEvent('cta_try_saju', { source: 'error' })}
+            >
               무냥이에게 가기
             </a>
           </div>
@@ -83,7 +83,13 @@ export default function SharedResult({ token }) {
           <div className="share-page__state">
             <Mascot pose="bow" size="md" />
             <p>이 링크의 사주를 찾지 못했다냥.</p>
-            <a className="app__submit share-page__home" href="/">
+            <a
+              className="app__submit share-page__home"
+              href="/"
+              data-ga-event="cta_try_saju"
+              data-ga-location="share_missing"
+              onClick={() => trackEvent('cta_try_saju', { source: 'missing' })}
+            >
               무냥이에게 가기
             </a>
           </div>
@@ -112,7 +118,13 @@ export default function SharedResult({ token }) {
             </div>
 
             <footer className="reading-panel__footer">
-              <a className="app__submit share-page__home" href="/">
+              <a
+                className="app__submit share-page__home"
+                href="/"
+                data-ga-event="cta_try_saju"
+                data-ga-location="share_result"
+                onClick={() => trackEvent('cta_try_saju', { source: 'result' })}
+              >
                 나도 사주 보러 가기
               </a>
             </footer>

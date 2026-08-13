@@ -1,15 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
-
-function TalismanCorners() {
-  return (
-    <>
-      <span className="talisman__corner talisman__corner--tl" aria-hidden="true" />
-      <span className="talisman__corner talisman__corner--tr" aria-hidden="true" />
-      <span className="talisman__corner talisman__corner--bl" aria-hidden="true" />
-      <span className="talisman__corner talisman__corner--br" aria-hidden="true" />
-    </>
-  )
-}
+import TalismanCorners from '../ui/TalismanCorners.jsx'
+import '../../styles/form.css'
+import './profile.css'
 
 export default function ProfileModal({
   mode,
@@ -187,7 +179,13 @@ export default function ProfileModal({
           {error && <p className="profile-modal__error">{error}</p>}
 
           <div className="profile-modal__actions">
-            <button type="submit" className="app__submit" disabled={isSaving}>
+            <button
+              type="submit"
+              className="app__submit"
+              disabled={isSaving}
+              data-ga-event="profile_save"
+              data-ga-location="profile_modal"
+            >
               {isSaving ? '저장 중…' : isOnboard ? '저장하고 시작하겠다냥' : '프로필 저장'}
             </button>
             {onCancel && (
@@ -196,6 +194,8 @@ export default function ProfileModal({
                 className="app__submit app__submit--secondary"
                 onClick={onCancel}
                 disabled={isSaving}
+                data-ga-event="profile_cancel"
+                data-ga-location="profile_modal"
               >
                 취소
               </button>

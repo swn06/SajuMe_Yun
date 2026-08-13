@@ -1,4 +1,5 @@
-import { mascotLine, mascotSrc } from './lib/mascot.js'
+import { mascotLine, mascotSrc } from '../../lib/mascot.js'
+import './Mascot.css'
 
 export default function Mascot({
   pose = 'bow',

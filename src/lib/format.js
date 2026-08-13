@@ -39,3 +39,14 @@ const UUID_RE =
 export function isShareToken(value) {
   return UUID_RE.test(String(value || ''))
 }
+
+export function formatReadingWhen(iso) {
+  if (!iso) return '기록'
+  return new Date(iso).toLocaleString('ko-KR', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  })
+}

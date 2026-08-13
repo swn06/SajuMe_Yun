@@ -1,0 +1,137 @@
+.profile-card {
+  margin: 0 0 1.25rem;
+  padding: 1.05rem 0.85rem 1.15rem;
+  border: 1px solid color-mix(in srgb, var(--crimson) 45%, var(--gold));
+  background: color-mix(in srgb, var(--ink) 40%, transparent);
+}
+
+.profile-card__seal {
+  margin: 0 0 0.2rem;
+  color: color-mix(in srgb, var(--crimson) 75%, var(--gold));
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: 0.2em;
+}
+
+.profile-card__name {
+  margin: 0 0 0.4rem;
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+}
+
+.profile-card__meta,
+.profile-card__loading,
+.profile-card__empty {
+  margin: 0;
+  color: var(--smoke);
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  line-height: 1.55;
+}
+
+.profile-card__edit {
+  margin-top: 0.85rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid color-mix(in srgb, var(--gold) 65%, var(--crimson));
+  background: transparent;
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.profile-card__edit:hover:not(:disabled) {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.profile-card__edit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.profile-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: color-mix(in srgb, var(--ink) 82%, transparent);
+}
+
+.profile-modal__card {
+  width: min(420px, 100%);
+  max-height: min(92vh, 46rem);
+  overflow: auto;
+  padding: 2rem 1.45rem 1.8rem;
+}
+
+.profile-modal__seal {
+  margin: 0 0 0.25rem;
+  color: color-mix(in srgb, var(--crimson) 75%, var(--gold));
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.2em;
+  text-shadow: 0 0 14px color-mix(in srgb, var(--crimson) 40%, transparent);
+}
+
+.profile-modal__mark {
+  display: block;
+  margin: 0 0 0.5rem;
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.35em;
+}
+
+.profile-modal__title {
+  margin: 0 0 0.7rem;
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 4vw, 1.7rem);
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-shadow: 0 0 20px color-mix(in srgb, var(--crimson) 50%, transparent);
+}
+
+.profile-modal__lead {
+  margin: 0 auto;
+  max-width: 18rem;
+  color: var(--smoke);
+  font-size: 0.86rem;
+  letter-spacing: 0.03em;
+  line-height: 1.6;
+}
+
+.profile-modal__divider {
+  height: 1px;
+  width: 72%;
+  margin: 1.15rem auto 1.2rem;
+  background: color-mix(in srgb, var(--crimson) 55%, var(--gold));
+  opacity: 0.7;
+}
+
+.profile-modal__error {
+  margin: 0;
+  width: 100%;
+  max-width: 280px;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--magenta);
+  color: var(--paper);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.profile-modal__actions {
+  width: 100%;
+  max-width: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}

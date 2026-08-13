@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
-import burstImg from './assets/munyang-burst.png'
-import danceImg from './assets/munyang-dance.png'
+import burstImg from '../../assets/munyang-burst.png'
+import danceImg from '../../assets/munyang-dance.png'
 import './LoadingRitual.css'
 
 /**
@@ -23,12 +23,7 @@ export default function LoadingRitual({ phase, onBurstEnd }) {
     >
       <div className="ritual__stage">
         <div className="ritual__cat-wrap">
-          <img
-            className="ritual__dance"
-            src={danceImg}
-            alt=""
-            draggable={false}
-          />
+          <img className="ritual__dance" src={danceImg} alt="" draggable={false} />
           <span className="ritual__spark ritual__spark--1" aria-hidden="true" />
           <span className="ritual__spark ritual__spark--2" aria-hidden="true" />
           <span className="ritual__spark ritual__spark--3" aria-hidden="true" />
@@ -36,12 +31,7 @@ export default function LoadingRitual({ phase, onBurstEnd }) {
           <span className="ritual__spark ritual__spark--5" aria-hidden="true" />
         </div>
 
-        <img
-          className="ritual__burst"
-          src={burstImg}
-          alt=""
-          draggable={false}
-        />
+        <img className="ritual__burst" src={burstImg} alt="" draggable={false} />
 
         <div className="ritual__shards" aria-hidden="true">
           {Array.from({ length: 12 }, (_, i) => (
