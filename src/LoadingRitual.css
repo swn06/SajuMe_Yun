@@ -7,8 +7,9 @@
   align-items: center;
   justify-content: center;
   gap: 1.25rem;
-  background: transparent;
-  pointer-events: none;
+  background: #000;
+  pointer-events: auto;
+  cursor: wait;
   animation: ritual-fade-in 0.35s ease-out both;
 }
 
@@ -19,8 +20,8 @@
 
 .ritual__stage {
   position: relative;
-  width: min(280px, 72vw);
-  height: min(280px, 72vw);
+  width: min(340px, 78vw);
+  height: min(340px, 78vw);
   display: grid;
   place-items: center;
 }
@@ -31,7 +32,7 @@
   grid-area: 1 / 1;
 }
 
-/* ——— 춤추는 무냥이 ——— */
+/* ——— 사주 보는 무냥이 ——— */
 .ritual__cat-wrap {
   position: relative;
   width: 100%;
@@ -39,24 +40,21 @@
   display: grid;
   place-items: center;
   transform-origin: 50% 70%;
-  animation: ritual-dance 0.85s ease-in-out infinite;
+  animation: ritual-breathe 2.2s ease-in-out infinite;
 }
 
 .ritual--bursting .ritual__cat-wrap {
   animation: ritual-cat-pop 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.2) forwards;
 }
 
-.ritual__cat {
-  width: 92%;
+.ritual__dance {
+  display: block;
+  width: min(17rem, 72vw);
   height: auto;
-  user-select: none;
+  object-fit: contain;
   pointer-events: none;
-  filter: drop-shadow(0 0 18px rgba(235, 210, 140, 0.35));
-  animation: ritual-wiggle 0.42s ease-in-out infinite alternate;
-}
-
-.ritual--bursting .ritual__cat {
-  animation: none;
+  user-select: none;
+  filter: drop-shadow(0 0 22px rgba(235, 210, 140, 0.28));
 }
 
 /* ——— 반짝이 ——— */
@@ -178,14 +176,9 @@
   to { opacity: 0; }
 }
 
-@keyframes ritual-dance {
-  0%, 100% { transform: translateY(0) rotate(-4deg); }
-  50% { transform: translateY(-14px) rotate(4deg); }
-}
-
-@keyframes ritual-wiggle {
-  from { transform: rotate(-3deg) scale(1); }
-  to { transform: rotate(3deg) scale(1.03); }
+@keyframes ritual-breathe {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-8px) scale(1.03); }
 }
 
 @keyframes ritual-twinkle {
@@ -236,7 +229,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .ritual__cat-wrap,
-  .ritual__cat,
   .ritual__spark,
   .ritual__caption,
   .ritual__dots {

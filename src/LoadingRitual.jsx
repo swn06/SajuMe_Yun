@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
-import danceImg from './assets/munyang-dance.png'
 import burstImg from './assets/munyang-burst.png'
+import danceImg from './assets/munyang-dance.png'
 import './LoadingRitual.css'
 
 /**
@@ -24,7 +24,7 @@ export default function LoadingRitual({ phase, onBurstEnd }) {
       <div className="ritual__stage">
         <div className="ritual__cat-wrap">
           <img
-            className="ritual__cat"
+            className="ritual__dance"
             src={danceImg}
             alt=""
             draggable={false}
@@ -52,7 +52,7 @@ export default function LoadingRitual({ phase, onBurstEnd }) {
 
       {phase === 'loading' && (
         <p className="ritual__caption">
-          사주풀이중<span className="ritual__dots">~</span>
+          사주 보는 중이다냥<span className="ritual__dots">~</span>
         </p>
       )}
     </div>
