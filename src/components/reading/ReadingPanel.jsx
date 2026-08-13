@@ -79,7 +79,7 @@ export default function ReadingPanel({
                 data-ga-location="result_gate"
               >
                 <GoogleGlyph />
-                <span>{authBusy ? 'Google로 이동 중…' : 'Google로 나머지 보기'}</span>
+                <span>{authBusy ? '로그인 중…' : 'Google로 나머지 보기'}</span>
               </button>
               {authError && <p className="reading-panel__gate-error">{authError}</p>}
             </div>

@@ -82,7 +82,7 @@ export default function AuthBar({
               data-ga-location="header"
             >
               <GoogleGlyph />
-              <span>{authBusy ? '이동 중…' : 'Google로 계속하기'}</span>
+              <span>{authBusy ? '로그인 중…' : 'Google로 계속하기'}</span>
             </button>
           </div>
         </>

@@ -39,11 +39,25 @@ npm install
 VITE_GEMINI_API_KEY=여기에_발급받은_키
 VITE_SUPABASE_URL=여기에_프로젝트_URL
 VITE_SUPABASE_ANON_KEY=여기에_anon_키
+VITE_GOOGLE_CLIENT_ID=여기에_구글_웹_클라이언트_ID
 ```
 
 - Gemini 키: [Google AI Studio](https://aistudio.google.com/apikey)
 - Supabase: Dashboard → Project Settings → API
-- Auth Site URL / Redirect URLs에 `http://localhost:5173` (배포 시 해당 도메인)을 넣습니다
+- Google Client ID: [Providers → Google](https://supabase.com/dashboard/project/dmvocosmmuhmkwhhypvb/auth/providers?provider=Google)
+
+Vercel에도 같은 `VITE_` 값을 넣고 **Redeploy** 해야 배포 사이트에서 로그인이 된다.
+
+### Google 로그인 (Vercel / 휴대폰)
+
+로그인은 페이지를 나가지 않고 Google 팝업으로 처리한다. 그래서 `localhost`로 튕기지 않는다.
+
+1. [Google 클라이언트](https://console.cloud.google.com/auth/clients)의 **Authorized JavaScript origins**에 아래를 넣는다.
+   - `https://saju-me-yun.vercel.app`
+   - `http://localhost:5173`
+2. **Authorized redirect URIs**는 앱 주소가 아니라 이것만 둔다.
+   - `https://dmvocosmmuhmkwhhypvb.supabase.co/auth/v1/callback`
+3. 휴대폰은 **카카오톡 인앱이 아니라 Safari/Chrome**으로 [사주미](https://saju-me-yun.vercel.app)를 연다.
 
 `.env`는 Git에 올리지 않습니다.
 

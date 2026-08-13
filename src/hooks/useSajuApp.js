@@ -313,6 +313,7 @@ export function useSajuApp() {
       console.error(err)
       trackEvent('login_fail', { method: 'google', source })
       setAuthError(err.message || 'Google 로그인에 실패했습니다.')
+    } finally {
       setAuthBusy(false)
     }
   }
